@@ -1,18 +1,27 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div>
+    <InputText v-model="text"/>
+    <Button label="Greet" icon="pi pi-user" @click="greet"></Button>
+    <Tsoast />
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
 
-export default defineComponent({
-  name: 'App',
-  components: {
-    HelloWorld
+
+export default {
+  data(){
+    return{
+      text:null
+    }
+
+  },
+  methods: {
+    greet(){
+      this.$toast.add({severity: 'info', summary: 'Hello', detail: this.text});
+    }
   }
-})
+}
 </script>
 
 <style>
