@@ -1,14 +1,25 @@
 <template>
-     <panneauHeader></panneauHeader>
+  
+    <PanneauHeader/>
+    <router-view/>
+  
+      
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import panneauHeader from './components/panneauHeader.vue'
+import PanneauHeader from './components/PanneauHeader.vue'
+import Profil from './components/user/Profil.vue'
+import Presentation from './components/home/Presentation.vue';
+import Map from './components/marketMap/Map.vue';
+
 export default defineComponent({
     name: 'App',
     components :{
-      panneauHeader,
+      PanneauHeader,
+      Profil,
+      Presentation,
+      Map
     }
     
 

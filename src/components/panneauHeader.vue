@@ -1,8 +1,11 @@
 <template>
+  <div>
+    <TabMenu :model="items" />
   
-  <TabMenu :model="items" />
+    <!-- <router-view/> -->
+
+  </div>
   
-  <router-view/>
    
    
 </template>
@@ -10,13 +13,15 @@
 <script lang="ts">
 import { ref, defineComponent } from 'vue'
 export default defineComponent({
-  name: 'panneauHeader',
+  name: 'PanneauHeader',
   data() {
     return {
 			items: [
-                {label: 'Home', icon: 'pi pi-fw pi-home', to: '/home'},
-                {label: 'Header', icon: 'pi pi-fw pi-calendar', to: '/panneauHeader'},
-                
+                {label: 'Acceuil', icon: 'pi pi-fw pi-home', to: '/home/presentation'},
+                {label: 'Nos marchés', icon: 'pi pi-fw pi-map-marker', to: '/marketmap/map'},
+                {label: 'Mon marché', icon: 'pi pi-fw pi-flag', to: '/'},
+                {label: 'Mes produits ', icon: 'pi pi-fw pi-th-large', to: '/'},
+                {label: 'Mon compte ', icon: 'pi pi-fw pi-user', to: '/user/profil'},
             ]
 		}
   }
