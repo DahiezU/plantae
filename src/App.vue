@@ -16,11 +16,13 @@ export default {
     }
 
   },
-  methods: {
+  setup: {
     greet(){
-      this.$toast.add({severity: 'info', summary: 'Hello', detail: this.text});
+        const toast = useToast();
+        toast.add({severity:'info', summary: 'Info Message', detail:'Message Content', life: 3000});
     }
   }
+  
 }
 </script>
 
