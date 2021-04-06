@@ -2,7 +2,7 @@
   <div>
     <InputText v-model="text"/>
     <Button label="Greet" icon="pi pi-user" @click="greet"></Button>
-    <Tsoast />
+    <Toast />
   </div>
 </template>
 
