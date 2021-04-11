@@ -3,7 +3,7 @@ import PanneauHeader from '../components/PanneauHeader.vue';
 import Profil from '../components/user/Profil.vue';
 import Presentation from '../components/home/Presentation.vue';
 import Map from '../components/marketMap/Map.vue';
-
+import itemsMarket from '../components/myMarket/itemsMarket.vue';
 
 const routes = [
   {
@@ -23,7 +23,10 @@ const routes = [
     path: '/marketmap/map',
     component: Map,
   },
-
+  {
+    path: '/myMarket/itemsMarket',
+    component: itemsMarket,
+  },
   
 ];
 
