@@ -15,6 +15,7 @@ import Map from './components/marketMap/Map.vue';
 import itemsMarket from './components/myMarket/itemsMarket.vue';
 import axios from 'axios';
 
+
 export default defineComponent({
     name: 'App',
     components :{
@@ -22,7 +23,11 @@ export default defineComponent({
       Profil,
       Presentation,
       Map,
+<<<<<<< HEAD
       itemsMarket
+=======
+      
+>>>>>>> 8f58e932466ec88c42f979523a1acf34bc3746fc
     }
     
 

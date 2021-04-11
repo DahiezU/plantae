@@ -1,75 +1,30 @@
 <template>
-  
-  <div id="map" />
+
+  <MglMap :accessToken="accessToken" :mapStyle="mapStyle"/>
+
 </template>
 
 <script>
-import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-import { onMounted } from "vue";
-import { createApp, defineComponent, ref, nextTick } from "vue";
+
+import Mapbox from "mapbox-gl";
+import  {MglMap}  from "vue-mapbox";
+
 
 export default {
-  setup() {
-    const title = ref("Unchanged Popup Title");
-    onMounted(() => {
-      mapboxgl.accessToken = "pk.eyJ1Ijoic2ltb25idXJkeSIsImEiOiJja25icnMwYXMxdWt1MnJwOWRucHpwd2xzIn0.yG-p5avGJ5RnF8DIEL_nDw";
-      const map = new mapboxgl.Map({
-        container: "map",
-        style: "mapbox://styles/mapbox/light-v9",
-        center: [2.619028636944507, 47.2472708711553],
-        zoom: 5,
-      });
-      map.on("load", () => {
-        // Here we want to load a layer
-        map.addSource("france", {
-          type: "geojson",
-          data:
-            {
-  "geometry": {
-    "coordinates": [
-     
-      
-    ],
-    "type": "Polygon"
+  components: {
+    MglMap
   },
-  "type": "Feature",
-  "properties": {
-    "name": "France Hexagone"
+  data() {
+    return {
+      accessToken: "pk.eyJ1Ijoic2ltb25idXJkeSIsImEiOiJja25icnI3ajQxdTlxMm9vNmxsODE3dTRtIn0.YBKzKxPtJaxZVNH0je-Quw", // your access token. Needed if you using Mapbox maps
+      mapStyle:"mapbox://styles/simonburdy/cknd782me078k17o3kqf63teg" // your map style
+    };
+  },
+
+  created() {
+    // We need to set mapbox-gl library here in order to use it in template
+    this.mapbox = Mapbox;
   }
-}
-        });
-        map.addLayer({
-          id: "france-fill",
-          type: "fill",
-          source: "france",
-          paint: {
-            "fill-color": "red",
-          },
-        });
-        // Here we want to setup the dropdown
-        map.on("click", "usa-fill", function (e) {
-          new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML('<div id="popup-content"></div>')
-            .addTo(map);
-          const MyNewPopup = defineComponent({
-           
-            setup() {
-              return { title };
-            },
-          });
-         
-        });
-      });
-    });
-    return { title };
-  },
 };
 </script>
 
-<style>
-#map {
-  height: 100vh;
-}
-</style>
