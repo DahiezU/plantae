@@ -14,17 +14,20 @@ export default defineComponent({
    setup() {
      const items = ref('');
     const options = {
-      params: {ingredient: 'milk'},
-      headers: {
-        'x-rapidapi-key': 'c6d25a11ebmsh522767e02dcdefcp1b4980jsn42aa3fde201c',
-        'x-rapidapi-host': 'chomp.p.rapidapi.com'
-      },
+       
+params: {name: 'The Ultimate Beefless Ground'},
+  headers: {
+    'x-rapidapi-key': 'c6d25a11ebmsh522767e02dcdefcp1b4980jsn42aa3fde201c',
+    'x-rapidapi-host': 'chomp.p.rapidapi.com'
+  },
+  
     };
 
     axios
-      .get('https://chomp.p.rapidapi.com/data/pull/country.php', options)
+      .get('https://chomp.p.rapidapi.com/product-search.php')
       .then(function (response) {
         items.value = response.data;
+        console.log("item :::", items.value)
       })
       .catch(function (error) {
         console.error(error);
