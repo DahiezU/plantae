@@ -24,7 +24,7 @@ params: {name: 'The Ultimate Beefless Ground'},
     };
 
     axios
-      .get('https://chomp.p.rapidapi.com/product-search.php')
+      .get('https://chomp.p.rapidapi.com/product-search.php', options)
       .then(function (response) {
         items.value = response.data;
         console.log("item :::", items.value)
