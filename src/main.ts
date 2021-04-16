@@ -15,6 +15,8 @@ import 'primevue/resources/primevue.min.css'                 //core css
 import 'primeicons/primeicons.css'                           //icons
 
 import TabMenu from 'primevue/tabmenu';
+import Card from 'primevue/card';
+import Button from 'primevue/button'
 
 
 
@@ -28,6 +30,8 @@ app.use(PrimeVue);
 app.use(VueAxios , axios);
 
 app.component('TabMenu',TabMenu);
+app.component('Card',Card);
+app.component('Button',Button);
 
 
 app.use(router).mount('#app')

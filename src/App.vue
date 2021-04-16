@@ -23,11 +23,7 @@ export default defineComponent({
       Profil,
       Presentation,
       Map,
-<<<<<<< HEAD
       itemsMarket
-=======
-      
->>>>>>> 8f58e932466ec88c42f979523a1acf34bc3746fc
     }
     
 
