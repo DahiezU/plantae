@@ -1,75 +1,90 @@
-<template>
-  
-  <div id="map" />
-</template>
-
-<script>
-import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-import { onMounted } from "vue";
-import { createApp, defineComponent, ref, nextTick } from "vue";
-
-export default {
-  setup() {
-    const title = ref("Unchanged Popup Title");
-    onMounted(() => {
-      mapboxgl.accessToken = "pk.eyJ1Ijoic2ltb25idXJkeSIsImEiOiJja25icnMwYXMxdWt1MnJwOWRucHpwd2xzIn0.yG-p5avGJ5RnF8DIEL_nDw";
-      const map = new mapboxgl.Map({
-        container: "map",
-        style: "mapbox://styles/mapbox/light-v9",
-        center: [2.619028636944507, 47.2472708711553],
-        zoom: 5,
-      });
-      map.on("load", () => {
-        // Here we want to load a layer
-        map.addSource("france", {
-          type: "geojson",
-          data:
-            {
-  "geometry": {
-    "coordinates": [
-     
-      
-    ],
-    "type": "Polygon"
-  },
-  "type": "Feature",
-  "properties": {
-    "name": "France Hexagone"
-  }
-}
-        });
-        map.addLayer({
-          id: "france-fill",
-          type: "fill",
-          source: "france",
-          paint: {
-            "fill-color": "red",
-          },
-        });
-        // Here we want to setup the dropdown
-        map.on("click", "usa-fill", function (e) {
-          new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML('<div id="popup-content"></div>')
-            .addTo(map);
-          const MyNewPopup = defineComponent({
-           
-            setup() {
-              return { title };
-            },
-          });
-         
-        });
-      });
-    });
-    return { title };
-  },
-};
-</script>
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Add markers to a web map with a symbol layer</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
 <style>
-#map {
-  height: 100vh;
-}
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
 </style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1Ijoic2ltb25idXJkeSIsImEiOiJja25icnI3ajQxdTlxMm9vNmxsODE3dTRtIn0.YBKzKxPtJaxZVNH0je-Quw';
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/light-v10',
+center: [-96, 37.8],
+zoom: 2
+});
+ 
+map.on('load', function () {
+// Add an image to use as a custom marker
+map.loadImage(
+'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+function (error, image) {
+if (error) throw error;
+map.addImage('custom-marker', image);
+// Add a GeoJSON source with 2 points
+map.addSource('points', {
+'type': 'geojson',
+'data': {
+'type': 'FeatureCollection',
+'features': [
+{
+// feature for Mapbox DC
+'type': 'Feature',
+'geometry': {
+'type': 'Point',
+'coordinates': [
+-77.03238901390978,
+38.913188059745586
+]
+},
+'properties': {
+'title': 'Mapbox DC'
+}
+},
+{
+// feature for Mapbox SF
+'type': 'Feature',
+'geometry': {
+'type': 'Point',
+'coordinates': [-122.414, 37.776]
+},
+'properties': {
+'title': 'Mapbox SF'
+}
+}
+]
+}
+});
+ 
+// Add a symbol layer
+map.addLayer({
+'id': 'points',
+'type': 'symbol',
+'source': 'points',
+'layout': {
+'icon-image': 'custom-marker',
+// get the title name from the source's "title" property
+'text-field': ['get', 'title'],
+'text-font': [
+'Open Sans Semibold',
+'Arial Unicode MS Bold'
+],
+'text-offset': [0, 1.25],
+'text-anchor': 'top'
+}
+});
+}
+);
+});
+</script>
+ 
+</body>
+</html>

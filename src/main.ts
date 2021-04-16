@@ -17,9 +17,10 @@ import 'primeicons/primeicons.css'                           //icons
 import TabMenu from 'primevue/tabmenu';
 import Card from 'primevue/card';
 import Button from 'primevue/button'
-
-
-
+import Splitter from 'primevue/splitter';
+import SplitterPanel from 'primevue/splitterpanel';
+import Divider from 'primevue/divider';
+import Listbox from 'primevue/listbox';
 
 
 
@@ -32,7 +33,10 @@ app.use(VueAxios , axios);
 app.component('TabMenu',TabMenu);
 app.component('Card',Card);
 app.component('Button',Button);
-
+app.component('Splitter',Splitter);
+app.component('SplitterPanel',SplitterPanel);
+app.component('Divider',Divider);
+app.component('Listbox',Listbox);
 
 app.use(router).mount('#app')
 
