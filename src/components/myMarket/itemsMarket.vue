@@ -43,11 +43,31 @@ export default {
                     this.filteredItems = [...this.items];
                 }
                 else {
-                  
+                    //let tap = [];
+                    /*console.log(this.filteredItems);
+                    //this.filteredItems = [];
                     this.filteredItems = this.items.filter((choixItems) => {
                         console.log(choixItems);
-                        return choixItems.toLowerCase().startsWith(event.query.toLowerCase());
+                        //tap.push(choixItems); 
+                        return choixItems.startsWith(event.query.toLowerCase());;
+                    });*/
+                    
+                    //console.log(this.filteredItems);
+                    //console.log(tap);
+                     //this.filteredItems = tap ;
+                     //console.log(this.filteredItems[0]);
+
+                    let resultat = [];
+                     this.items.forEach(element => {
+                        let configLine = {
+                            name : element
+                        }
+                         resultat.push(configLine);
+                    
+            
                     });
+
+                    this.filteredItems = resultat ;
                 }
             }, 250);
         },
