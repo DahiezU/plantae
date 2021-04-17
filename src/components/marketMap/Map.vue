@@ -1,11 +1,11 @@
 <template>
   
 
-<Splitter style="height: 300px">
-	<SplitterPanel>
+<Splitter style="height: 700px">
+	<SplitterPanel :size="80" :minSize="50">
 		<div id="map" />
 	</SplitterPanel>
-	<SplitterPanel>
+	<SplitterPanel :size="20" :minSize="10">
 		<Listbox v-model="selectedCity" :options="cities" optionLabel="name" />
 	</SplitterPanel>
 </Splitter>
@@ -27,24 +27,9 @@ export default {
     const title = ref("Unchanged Popup Title");
     onMounted(() => {
       mapboxgl.accessToken = "pk.eyJ1Ijoic2ltb25idXJkeSIsImEiOiJja25icnI3ajQxdTlxMm9vNmxsODE3dTRtIn0.YBKzKxPtJaxZVNH0je-Quw";
-      const map = new mapboxgl.Map({
-        container: "map",
-        style: "mapbox://styles/simonburdy/cknd782me078k17o3kqf63teg",
-        center: [2.619028636944507, 47.2472708711553],
-        zoom: 5,
-      });
-      map.on('load', function () {
-        // Add an image to use as a custom marker
-        map.loadImage(
-            'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
-            function (error, image) {
-                if (error) throw error;
-                map.addImage('custom-marker', image);
-                // Add a GeoJSON source with 2 points
-                map.addSource('points', {
-                    'type': 'geojson',
-                    'data': {
-                        'type': 'FeatureCollection',
+    
+        var geojson = {
+                    'type': 'FeatureCollection',
                         'features': [
                             {
                                 // feature for Mapbox DC
@@ -57,7 +42,8 @@ export default {
                                     ]
                                 },
                                 'properties': {
-                                    'title': 'Magasin 1'
+                                    'title': 'Magasin 1',
+                                    'description': 'Meilleur magasin du monde'
                                 }
                             },
                             {
@@ -68,7 +54,8 @@ export default {
                                     'coordinates': [4.00964655231681, 49.70918562722347]
                                 },
                                 'properties': {
-                                    'title': 'Magasin 2'
+                                    'title': 'Magasin 2',
+                                    'description': 'Meilleur magasin du monde'
                                 }
                             },
                              {
@@ -82,7 +69,8 @@ export default {
                                     ]
                                 },
                                 'properties': {
-                                    'title': 'Magasin 3'
+                                    'title': 'Magasin 3',
+                                    'description': 'Meilleur magasin du monde'
                                 }
                             },
                              {
@@ -96,33 +84,40 @@ export default {
                                     ]
                                 },
                                 'properties': {
-                                    'title': 'Magasin 4'
+                                    'title': 'Magasin 4',
+                                    'description': 'Meilleur magasin du monde'
                                 }
                             },
                         ]
                     }
-                });
-
-                // Add a symbol layer
-                map.addLayer({
-                    'id': 'points',
-                    'type': 'symbol',
-                    'source': 'points',
-                    'layout': {
-                        'icon-image': 'custom-marker',
-                        // get the title name from the source's "title" property
-                        'text-field': ['get', 'title'],
-                        'text-font': [
-                            'Open Sans Semibold',
-                            'Arial Unicode MS Bold'
-                        ],
-                        'text-offset': [0, 1.25],
-                        'text-anchor': 'top'
-                    }
-                });
-            }
-        );
-    });
+      
+      
+      
+      
+      
+      const map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/simonburdy/cknd782me078k17o3kqf63teg",
+        center: [2.619028636944507, 47.2472708711553],
+        zoom: 5,
+      });
+      geojson.features.forEach(function (marker) {
+            // create a HTML element for each feature
+            var el = document.createElement('div');
+            el.className = 'marker';
+            
+            // make a marker for each feature and add it to the map
+            new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates)
+                .setPopup(
+                    new mapboxgl.Popup({ offset: 25 }) // add popups
+                        .setHTML(
+                            '<h3>' + marker.properties.title + '</h3><p>' + marker.properties.description +'</p>')
+                )
+                .addTo(map)
+      
+      });
+    
     });
     return { title };
   },
@@ -141,6 +136,25 @@ export default {
 
 <style>
 #map {
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+  
+}
+
+.marker {
+  background-image: url('../../public/icons/grocery.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.mapboxgl-popup {
+max-width: 200px;
+}
+.mapboxgl-popup-content {
+text-align: center;
+font-family: 'Open Sans', sans-serif;
 }
 </style>
