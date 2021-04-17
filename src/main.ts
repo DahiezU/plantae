@@ -21,7 +21,8 @@ import Splitter from 'primevue/splitter';
 import SplitterPanel from 'primevue/splitterpanel';
 import Divider from 'primevue/divider';
 import Listbox from 'primevue/listbox';
-
+import InputText from 'primevue/inputtext';
+import AutoComplete from 'primevue/autocomplete';
 
 
 const app = createApp(App);
@@ -37,6 +38,8 @@ app.component('Splitter',Splitter);
 app.component('SplitterPanel',SplitterPanel);
 app.component('Divider',Divider);
 app.component('Listbox',Listbox);
+app.component('InputText',InputText);
+app.component('AutoComplete',AutoComplete);
 
 
 app.use(router).mount('#app')

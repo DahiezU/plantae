@@ -1,20 +1,29 @@
 <template>
+<div>
+  <span class="p-input-icon-left">
+      <i class="pi pi-search" />
+      <InputText type="text" v-model="nameEntre" placeholder="Search" />
+  </span>
 
-  <input type="text" v-model="nameEntre" />
+</div>
 
-  <tr v-for="item in items['hits']" :key="item.item_id">
+
+
+
+<div v-if="afficherRes">
+  <tr v-for="item in items.value.hints" :key="item.item_id">
     <Card>
       <template #header>
-          <img id="imagProduct"   alt="img product" src="public/img/tomate.jpg">
+          <img id="imagProduct"   alt="img product" :src="item.food.image">
           
       </template>
       <template #title>
-        {{item["fields"]["item_name"]}}
+        {{item.food.label}}
       </template>
       <template #content>
-        Brand name : {{item["fields"]["brand_name"]}} <br>
-        Calorie : {{item["fields"]["nf_calories"]}} <br>
-        Total Fat : {{item["fields"]["nf_total_fat"]}} <br>
+       
+        category: {{item.food.category}} <br>
+       
   
       </template>
       <template #footer>
@@ -23,59 +32,55 @@
       </template>
     </Card> 
   </tr>
+
+
+</div>
+
+
+
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
-
+const items= {};
 export default defineComponent({
-   setup() {
-     const items = ref('');
-     const nameItems = ref('');
-     const brandItems = ref('');
-     const calorieItems = ref('');
-     const nameEntre = 'tomato';
-    const options = {
-       params: {fields: 'item_name,item_id,brand_name,nf_calories,nf_total_fat'},
-  headers: {
-    'x-rapidapi-key': '36adc59313msh8e3a53d4305517ep163457jsn0a1b2676554e',
-    'x-rapidapi-host': 'nutritionix-api.p.rapidapi.com'
-  }
-    };
+ 
+   data() {
+      return{
+        afficherRes:false,
+        nameEntre: '',
+        items
+       
+      };
+    },
+   
 
-    axios
-      .get( 'https://nutritionix-api.p.rapidapi.com/v1_1/search/gala%20apple', options)
-      .then(function (response) {
-        items.value = response.data;
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    watch: {
+    nameEntre() {
+      this.afficherRes = true;
+      axios
+        .get( 'https://api.edamam.com/api/food-database/v2/parser?ingr='+this.nameEntre+'&app_id=21137dee&app_key=3ec1733a6d09062c59d4ef9451d12035')
+        .then(function (response) {
+          //console.log(response)
+          items.value = response.data
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+      //console.log(this.items.value)
+        console.log(items.value)
 
-    return {
-      items,
-     
-    };
-  },
-  computed: {
-     findItemByName() {
-      return this.collectionCards?.find(card => card.name.toLowerCase() === this.cardName.toLowerCase());
+        return{
+          items
+        }
+      }
     }
-    
-  },
+
+  
 });
 </script>
 
 <style scoped>
-#imagProduct{
-  max-width: 10%;
-  max-height: 10%;
-}
+
 </style>
-
-
-
-
-
-
