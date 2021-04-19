@@ -23,7 +23,7 @@
           
               </template>
               <template #footer>
-                  <Button icon="pi pi-check" label="Save" />
+                  <Button icon="pi pi-check" label="Save" href='/myMarket/itemChoose'/>
                   <Button icon="pi pi-times" label="Cancel" class="p-button-secondary" style="margin-left: .5em" />
               </template>
             </Card> 
@@ -83,7 +83,6 @@ export default {
                     //console.log(tap);
                      //this.filteredItems = tap ;
                      //console.log(this.filteredItems[0]);
-
                     let resultat = [];
                      this.items.forEach(element => {
                         let configLine = {
@@ -93,7 +92,6 @@ export default {
                     
             
                     });
-
                     this.filteredItems = resultat ;
                 }
             }, 250);
@@ -112,13 +110,11 @@ export default {
               });
             //console.log(this.items.value)
               console.log(itemsFound)
-
               return{
                 itemsFound
               }
           }
     },
     
-
 }
 </script>

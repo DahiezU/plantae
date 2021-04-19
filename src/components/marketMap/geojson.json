@@ -1,0 +1,62 @@
+{
+    "type": "FeatureCollection",
+        "features": [
+            {
+               
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        3.0408703999999998,
+                        50.62656
+                    ]
+                },
+                "properties": {
+                    "title": "Magasin 1",
+                    "description": "Meilleur magasin du monde"
+                }
+            },
+            {
+             
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [4.00964655231681, 49.70918562722347]
+                },
+                "properties": {
+                    "title": "Magasin 2",
+                    "description": "Meilleur magasin du monde"
+                }
+            },
+             {
+               
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        1.7733223899747808,
+                        46.09373863583898
+                    ]
+                },
+                "properties": {
+                    "title": "Magasin 3",
+                    "description": "Meilleur magasin du monde"
+                }
+            },
+             {
+               
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        4.028604327159604,
+                        46.3404606307355
+                    ]
+                },
+                "properties": {
+                    "title": "Magasin 4",
+                    "description": "Meilleur magasin du monde"
+                }
+            }
+        ]
+    }

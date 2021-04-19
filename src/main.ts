@@ -13,6 +13,8 @@ import PrimeVue from 'primevue/config'
 import 'primevue/resources/themes/saga-blue/theme.css'       //theme
 import 'primevue/resources/primevue.min.css'                 //core css
 import 'primeicons/primeicons.css'                           //icons
+import 'primeflex/primeflex.css'
+
 
 import TabMenu from 'primevue/tabmenu';
 import Card from 'primevue/card';
@@ -23,6 +25,7 @@ import Divider from 'primevue/divider';
 import Listbox from 'primevue/listbox';
 import InputText from 'primevue/inputtext';
 import AutoComplete from 'primevue/autocomplete';
+import InputNumber from 'primevue/inputnumber';
 
 
 const app = createApp(App);
@@ -30,6 +33,7 @@ const app = createApp(App);
 
 app.use(PrimeVue);
 app.use(VueAxios , axios);
+
 
 app.component('TabMenu',TabMenu);
 app.component('Card',Card);
@@ -39,7 +43,9 @@ app.component('SplitterPanel',SplitterPanel);
 app.component('Divider',Divider);
 app.component('Listbox',Listbox);
 app.component('InputText',InputText);
+app.component('InputNumber',InputNumber);
 app.component('AutoComplete',AutoComplete);
+
 
 
 app.use(router).mount('#app')

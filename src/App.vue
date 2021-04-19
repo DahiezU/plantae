@@ -13,7 +13,7 @@ import Profil from './components/user/Profil.vue'
 import Presentation from './components/home/Presentation.vue';
 //import Map from './components/marketMap/Map.vue';
 import itemsMarket from './components/myMarket/itemsMarket.vue';
-import axios from 'axios';
+//import login from './components/user/login.vue'
 
 
 export default defineComponent({
@@ -22,7 +22,8 @@ export default defineComponent({
       PanneauHeader,
       Profil,
       Presentation,
-      itemsMarket
+      itemsMarket,
+      //login
     }
     
 
