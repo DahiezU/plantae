@@ -41,14 +41,13 @@ export default {
     data() {
         return {
             items: null,
-            selectedItem: null,
-            filteredItems: null,
             afficherRes:false,
             itemsFound
           
           
         }
     },
+    selectedItem: null,
     itemService: null,
     created() {
         this.itemService = new ItemService();
@@ -59,31 +58,55 @@ export default {
         console.log('<------------');
         console.log(this.itemService.getItems().items.value);
     },*/
+
+    computed: {
+
+          selectedItem: {
+            get(){
+              return this.selectedItem;
+            },
+            set(inputText){
+              console.log(" bonjour simon",this.selectedItem) 
+              let resultat = [];
+              this.items = this.itemService.getItems(inputText).items.value
+              console.log(this.items)
+                    /* this.items?.forEach(element => {
+                        let configLine = {
+                            name : element
+                        }
+                         resultat.push(configLine);
+                    
+            
+                    });
+              this.filterItems = resultat*/
+            }
+          },
+
+          filteredItems: {
+            get(){
+                  return this.filteredItems;
+                }
+            
+                
+          }
+      
+    },
+    
     methods: {
         searchItem(event) {
           this.items =  this.itemService.getItems(this.selectedItem).items.value
-          console.log('<------------', "ok"+ this.items + "ok");
+         // console.log("aoao :::", this.itemService.getItems(this.selectedItem).items)
+          //console.log('<------------', "ok"+ this.items + "ok");
+         // console.log("this.filteredItems before :::", this.filteredItems)
           //console.log(this.itemService.getItems(this.selectedItem).items.value);
-            setTimeout(() => {
+            /*setTimeout(() => {
               console.log(event.query)
                 if (!event.query.trim().length) {
-                  //console.log("ddddd");
+                 
                     this.filteredItems = [...this.items];
                 }
                 else {
-                    //let tap = [];
-                    /*console.log(this.filteredItems);
-                    //this.filteredItems = [];
-                    this.filteredItems = this.items.filter((choixItems) => {
-                        console.log(choixItems);
-                        //tap.push(choixItems); 
-                        return choixItems.startsWith(event.query.toLowerCase());;
-                    });*/
                     
-                    //console.log(this.filteredItems);
-                    //console.log(tap);
-                     //this.filteredItems = tap ;
-                     //console.log(this.filteredItems[0]);
                     let resultat = [];
                      this.items?.forEach(element => {
                         let configLine = {
@@ -94,8 +117,9 @@ export default {
             
                     });
                     this.filteredItems = resultat ;
+                    console.log("this.filteredItems after :::", this.filteredItems)
                 }
-            }, 250);
+            }, 250);*/
         },
       loadItems() {
             //console.log(this.selectedItem.name);
