@@ -62,9 +62,10 @@ export default {
     methods: {
         searchItem(event) {
           this.items =  this.itemService.getItems(this.selectedItem).items.value
-          console.log('<------------');
+          console.log('<------------', "ok"+ this.items + "ok");
           //console.log(this.itemService.getItems(this.selectedItem).items.value);
             setTimeout(() => {
+              console.log(event.query)
                 if (!event.query.trim().length) {
                   //console.log("ddddd");
                     this.filteredItems = [...this.items];
@@ -84,7 +85,7 @@ export default {
                      //this.filteredItems = tap ;
                      //console.log(this.filteredItems[0]);
                     let resultat = [];
-                     this.items.forEach(element => {
+                     this.items?.forEach(element => {
                         let configLine = {
                             name : element
                         }
@@ -100,7 +101,7 @@ export default {
             //console.log(this.selectedItem.name);
             this.afficherRes = true;
             axios
-              .get( 'https://api.edamam.com/api/food-database/v2/parser?ingr='+this.selectedItem.name+'&app_id=21137dee&app_key=3ec1733a6d09062c59d4ef9451d12035')
+              .get( 'https://api.edamam.com/api/food-database/v2/parser?ingr='+this.selectedItem.name+'&app_id=88eed00f&app_key=dfafd7498b7690a96f797bd1ec639be8')
               .then(function (response) {
                 //console.log(response)
                 itemsFound.value = response.data
