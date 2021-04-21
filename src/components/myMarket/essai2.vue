@@ -12,7 +12,7 @@
           
        <div v-if="afficherRes">
 
-          <tr v-for="item in itemsRes.value" :key="item.food.foodId">
+          <tr v-for="item in itemsFound.value" :key="item.food.foodId">
             <Card>
               <template #header>
                   <img id="imagProduct"   alt="img product" :src="item.food.image">
@@ -41,6 +41,7 @@
 import ItemService from './itemsService';
 import axios from 'axios'
 import { ref} from 'vue'
+const itemsFound= {};
 
 export default {
     data() {
@@ -49,8 +50,8 @@ export default {
             afficherRes:false,
             selectedItem: null, 
             filteredItems: null,
-            itemsFound:[],
-            itemsRes:[]
+            itemsFound
+            
 
           
         }
@@ -67,13 +68,15 @@ export default {
       filteredItems(){
         return this.filteredItems
       },
+      itemsFound(){
+        return itemsFound
+      }
       /*itemsFound: {
         get(){
-           return this.itemsFound
+          return itemsFound
         },
         set(valeur){
-            //console.log("ma belle valauer == " , valeur)
-            this.itemsRes = valeur
+          this.itemsFound = valeur
         }
       }*/
     },
@@ -106,40 +109,51 @@ export default {
           
          
         },
-           loadItems() {
-            //console.log(this.selectedItem.name);
-            this.afficherRes = true;
-            let test = [];
+
+      /*loadItems() {
+            console.log("--"+this.selectedItem.name+"--");
+            
+            console.log("afficher res ->> " ,this.afficherRes);
+            this.afficherRes = true
+            console.log("afficher res apres ->> " ,this.afficherRes);
+            
             axios
               .get( 'https://api.edamam.com/api/food-database/v2/parser?ingr='+this.selectedItem.name+'&app_id=21137dee&app_key=3ec1733a6d09062c59d4ef9451d12035')
               .then(function (response) {
-                //console.log(response)
+                console.log('ma putain de reponse de merde ->>>' ,response)
+                itemsFound.value = response.data.hints 
+                console.log('ms itemsFound ->>>' , itemsFound.value)
+              
                 
-                //console.log("mon  test resultat ==== " ,test)
-
-                response.data.hints.forEach(element => {
-                        let resultathints = {
-                            foodId : element.food.foodId,
-                            label : element.food.label ,
-                            category : element.food.category ,
-                            categoryLabel : element.food.categoryLabel,
-                            image :  element.food.image
-                        }
-                         test.push(resultathints);
-                    
-            
-                    });
-                    //console.log("ma valeur de test ===" , test)
+                
               })
               .catch(function (error) {
                 console.error(error);
               });
+
+              return itemsFound.value
              
-              //this.itemsFound = test
-              console.log("mon  test resultat ==== " ,this.itemsFound)
             
               
+            
+          }*/
+           loadItems() {
+            //console.log(this.selectedItem.name);
+            this.afficherRes = true;
+            axios
+              .get( 'https://api.edamam.com/api/food-database/v2/parser?ingr='+this.selectedItem.name+'&app_id=21137dee&app_key=3ec1733a6d09062c59d4ef9451d12035')
+              .then(function (response) {
+                //console.log(response)
+                itemsFound.value = response.data.hints
+              })
+              .catch(function (error) {
+                console.error(error);
+              });
+            //console.log(this.items.value)
+              console.log("itemsFound classique ---->",itemsFound)
               
+              this.itemsFound = itemsFound
+              console.log("this itemsFound   ---->",this.itemsFound.value)
           }
     },
     

@@ -10,7 +10,7 @@ import itemChoose from '../components/myMarket/itemChoose.vue';
 const routes = [
   {
     path: '/',
-    component: PanneauHeader,
+    component: Presentation,
   },
   {
     path: '/user/profil',
