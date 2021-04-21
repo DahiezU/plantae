@@ -111,7 +111,7 @@ export default {
             this.afficherRes = true;
             let test = [];
             axios
-              .get( 'https://api.edamam.com/api/food-database/v2/parser?ingr='+this.selectedItem.name+'&app_id=21137dee&app_key=3ec1733a6d09062c59d4ef9451d12035')
+              .get( 'https://api.edamam.com/api/food-database/v2/parser?ingr='+this.selectedItem.name+'&app_id=88eed00f&app_key=dfafd7498b7690a96f797bd1ec639be8')
               .then(function (response) {
                 //console.log(response)
                 

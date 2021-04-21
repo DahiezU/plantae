@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import PanneauHeader from '../components/PanneauHeader.vue';
+//import PanneauHeader from '../components/panneauHeader.vue';
 import Profil from '../components/user/Profil.vue';
 import Presentation from '../components/home/Presentation.vue';
 import Map from '../components/marketMap/Map.vue';
