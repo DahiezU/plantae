@@ -1,3 +1,4 @@
+
 <template>
     <div>
       {{filteredItems}}
@@ -38,7 +39,7 @@
 </template>
 
 <script>
-import ItemService from './itemsService';
+import ItemService from '../itemsService';
 import axios from 'axios'
 import { ref} from 'vue'
 const itemsFound= {};
@@ -49,7 +50,7 @@ export default {
             items: null,
             afficherRes:false,
             selectedItem: null, 
-            filteredItems: null,
+            filteredItems: [],
             itemsFound
             
 
@@ -90,10 +91,18 @@ export default {
     
     methods: {
         loadSuggestionItems() {
+          /*if (!query.trim()) {
+              this.filteredItems = [...this.items];
+                return;
+          }
+          
+          this.filteredItems = this.items.filter((f) => f.includes(query));*/
+    
+
           console.log(this.selectedItem)
           let resultat = [];
               this.items = this.itemService.getItems(this.selectedItem).items.value
-              //console.log(this.items)
+              console.log("mes items  de loadSuggestionItems ",this.items)
 
               this.items?.forEach(element => {
                         let configLine = {
@@ -103,10 +112,10 @@ export default {
                     
             
                     });
-            //console.log('mon resultat',resultat )
+            console.log('mon resultat',resultat )
             
             this.filteredItems = resultat
-          
+         
          
         },
 
@@ -156,6 +165,87 @@ export default {
               console.log("this itemsFound   ---->",this.itemsFound.value)
           }
     },
+    
+}
+</script>
+
+
+
+
+
+<template>
+    <div>
+      {{filteredItems}}
+      <br>
+      <br>
+      {{selectedItem}}
+        <div>
+            <h5>Basic</h5>
+            <AutoComplete 
+              v-model="selectedItem" 
+              :suggestions="filteredItems" 
+              @complete="loadSuggestionItems()" 
+              field="selectedItem"  
+              placeholder="Search"
+              >
+              <template #item="{ item }">
+                  <div>
+                    <div>{{ item }}</div>
+                  </div>
+                </template>
+              </AutoComplete>
+
+              <Button icon="pi pi-check" label="Search" @click="loadItems()"/>
+  
+            
+        </div>
+        <div v-if="afficherRes"> 
+          <tr v-for="item in resultatSearch.reponseSearch" :key="item.food.foodId">
+              biteeee ->>>> 
+              {{item}}
+          </tr>
+        </div>
+    
+    </div>
+</template>
+
+<script>
+import ItemService from './itemsService';
+
+
+
+export default {
+    data() {
+      return {
+          selectedItem:null,
+          filteredItems:["orange","abeille","bite"],
+          items :["orange","abeille","bite"],
+          resultatSearch:null,
+          afficherRes : false
+
+      }
+    },
+    itemService: null,
+    created() {
+        this.itemService = new ItemService();
+    },
+
+    methods: {
+      loadSuggestionItems(){
+            this.items =  this.itemService.getItemsSuggestions(this.selectedItem).items.value
+            this.filteredItems = this.items.filter((f) => f.includes(this.selectedItem));
+            console.log("Mes items Filtré", this.filteredItems)
+        },
+        /*loadItems(){
+            console.log("sale putain de fils de chinne ",this.itemService.searchItemSelected(this.selectedItem))
+            //console.log("----------------->",this.resultatSearch)
+
+            this.afficherRes=true
+          }*/
+
+    },
+    
+        
     
 }
 </script>

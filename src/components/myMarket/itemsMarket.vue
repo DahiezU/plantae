@@ -1,17 +1,28 @@
 <template>
     <div>
-      {{filteredItems}}
       <br>
       <br>
-      {{selectedItem}}
         <div>
             <h5>Basic</h5>
-            <AutoComplete v-model="selectedItem" :suggestions="filteredItems" @complete="loadSuggestionItems()" field="name"  placeholder="Search"/>
-            <Button icon="pi pi-check" label="Search" @click="loadItems()"/>
+            <AutoComplete 
+            v-model="selectedItem" 
+            :suggestions="filteredItems" 
+            @complete="loadSuggestionItems()" 
+            field="name"  
+            placeholder="Search">
+            <template #item="{ item }">
+                <div>
+                    <div>{{ item }}</div>
+                </div>
+            </template>
+            </AutoComplete>
+
+
+            
         </div>
           
        <div v-if="afficherRes">
-
+           
           <tr v-for="item in itemsRes.value" :key="item.food.foodId">
             <Card>
               <template #header>
@@ -41,7 +52,7 @@
 import ItemService from './itemsService';
 import axios from 'axios'
 import { ref} from 'vue'
-
+//const itemsFound = {}
 export default {
     data() {
         return {
@@ -49,8 +60,9 @@ export default {
             afficherRes:false,
             selectedItem: null, 
             filteredItems: null,
+            itemsRes: [],
             itemsFound:[],
-            itemsRes:[]
+            
 
           
         }
@@ -67,7 +79,7 @@ export default {
       filteredItems(){
         return this.filteredItems
       },
-      /*itemsFound: {
+      itemsFound: {
         get(){
            return this.itemsFound
         },
@@ -75,11 +87,12 @@ export default {
             //console.log("ma belle valauer == " , valeur)
             this.itemsRes = valeur
         }
-      }*/
+      }
     },
     watch: {
         selectedItem(){
             this.loadSuggestionItems()
+            this.loadItems()
           }
         
           
@@ -92,54 +105,49 @@ export default {
               this.items = this.itemService.getItems(this.selectedItem).items.value
               //console.log(this.items)
 
-              this.items?.forEach(element => {
+              /*this.items?.forEach(element => {
                         let configLine = {
                             name : element
                         }
-                         resultat.push(configLine);
+                         resultat.push(element);
                     
             
-                    });
+                    });*/
             //console.log('mon resultat',resultat )
             
-            this.filteredItems = resultat
+            this.filteredItems = this.items
           
          
         },
            loadItems() {
-            //console.log(this.selectedItem.name);
-            this.afficherRes = true;
-            let test = [];
-            axios
-              .get( 'https://api.edamam.com/api/food-database/v2/parser?ingr='+this.selectedItem.name+'&app_id=88eed00f&app_key=dfafd7498b7690a96f797bd1ec639be8')
-              .then(function (response) {
-                //console.log(response)
-                
-                //console.log("mon  test resultat ==== " ,test)
-
-                response.data.hints.forEach(element => {
-                        let resultathints = {
-                            foodId : element.food.foodId,
-                            label : element.food.label ,
-                            category : element.food.category ,
-                            categoryLabel : element.food.categoryLabel,
-                            image :  element.food.image
-                        }
-                         test.push(resultathints);
-                    
+               var bite = []
+            console.log("--"+this.selectedItem+"--");
             
-                    });
-                    //console.log("ma valeur de test ===" , test)
+            console.log("afficher res ->> " ,this.afficherRes);
+            this.afficherRes = true
+            console.log("afficher res apres ->> " ,this.afficherRes);
+            
+            axios
+              .get( 'https://api.edamam.com/api/food-database/v2/parser?ingr='+this.selectedItem+'&app_id=21137dee&app_key=3ec1733a6d09062c59d4ef9451d12035')
+              .then(function (response) {
+                console.log('ma putain de reponse de merde ->>>' ,response)
+                bite.value = response.data.hints 
+                console.log('ma bite  ->>>' , bite.value)
+              
+                
+                
               })
               .catch(function (error) {
                 console.error(error);
               });
-             
-              //this.itemsFound = test
-              console.log("mon  test resultat ==== " ,this.itemsFound)
+
+                this.itemsFound = bite ;
+                console.log(" mes  items found ->>>>> ",this.itemsFound)
+              
+              
             
               
-              
+            
           }
     },
     
