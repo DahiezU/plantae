@@ -39,21 +39,38 @@
           
               </template>
               <template #footer>
-                  <Button icon="pi pi-check" label="Save" href='/myMarket/itemChoose'/>
+                  <router-link :to="{
+                    name:'itemClicked' , 
+                    params: {
+                      itemId:item.food.foodId ,
+                      itemLabel:item.food.label ,
+                      itemImg:item.food.image,
+                      itemCategory: item.food.category }}"> 
+
+                      <Button icon="pi pi-check" label="Save" />
+                  </router-link>
                   <Button icon="pi pi-times" label="Cancel" class="p-button-secondary" style="margin-left: .5em" />
               </template>
             </Card> 
           </tr>
         </div>
     </div>
+
+    
 </template>
 
 <script>
 import ItemService from './itemsService';
+import ItemClicked from './itemClicked.vue';
 import axios from 'axios'
-import { ref} from 'vue'
+
+
 //const itemsFound = {}
 export default {
+    components:{
+        ItemClicked
+       
+    },
     data() {
         return {
             items: null,
@@ -62,6 +79,14 @@ export default {
             filteredItems: null,
             itemsRes: [],
             itemsFound:[],
+            monItem:{
+              itemLabel: '',
+              itemId:'',
+              itemImg:'',
+              itemCategory: ''
+            }
+            
+
             
 
           

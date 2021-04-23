@@ -13,7 +13,7 @@
                 },
                 "properties": {
                     "title": "Magasin 1",
-                    "description": "Meilleur magasin du monde"
+                    "description": "Lille"
                 }
             },
             {
@@ -25,7 +25,7 @@
                 },
                 "properties": {
                     "title": "Magasin 2",
-                    "description": "Meilleur magasin du monde"
+                    "description": "Moncornet"
                 }
             },
              {
@@ -40,7 +40,7 @@
                 },
                 "properties": {
                     "title": "Magasin 3",
-                    "description": "Meilleur magasin du monde"
+                    "description": "Chatelet"
                 }
             },
              {
@@ -55,7 +55,7 @@
                 },
                 "properties": {
                     "title": "Magasin 4",
-                    "description": "Meilleur magasin du monde"
+                    "description": "Anzy le duc"
                 }
             }
         ]

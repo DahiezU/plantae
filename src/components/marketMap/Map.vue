@@ -6,33 +6,9 @@
 		<div id="map" />
 	</SplitterPanel>
 	<SplitterPanel :size="20" :minSize="10">
-		<Listbox v-model="selectedCity" :options="cities" optionLabel="name" />
-        <div>
-            <div>
-                <span class="p-float-label">
-                    <InputText id="titre" type="text" v-model="titreMarker" />
-                    <label for="titre">Titre</label>
-                </span>
-            </div>
-            <div>
-                <span class="p-float-label">
-                <InputText id="description" type="text" v-model="descriptionMarker" />
-                <label for="description">Description</label>
-            </span>
-            </div>
-            <div>          
-                <label for="longitude">Longitude</label>
-                <InputNumber id="logitude" v-model="logitudeMarker" mode="decimal" :minFractionDigits="0" :maxFractionDigits="20" />
-            </div>
-            <div>          
-                <label for="lattitude">Lattitude</label>
-                <InputNumber id="lattitude" v-model="lattitudeMarker" mode="decimal" :minFractionDigits="0" :maxFractionDigits="20" />
-            </div>
-            <Button label="Submit" @click="addMarker()"/>
-        </div>
-        
-        
-        
+    <label >Nos localisations : </label>
+		<Listbox v-model="selectedCity" :options="descriptionMarker" optionLabel="name" />
+          
 	</SplitterPanel>
 </Splitter>
 
@@ -50,25 +26,28 @@ import { createApp, defineComponent, ref, nextTick } from "vue";
 import geojson from "./geojson.json"
 /*import * as fs from 'fs-web';
 import { writeFile } from 'fs-web';*/
+const descriptionMarker = [];
 export default {
+  
   data() {return  {
     selectedCity: null,
 		cities: [
-			{name: 'New York', code: 'NY'},
-			{name: 'Rome', code: 'RM'},
-			{name: 'London', code: 'LDN'},
-			{name: 'Istanbul', code: 'IST'},
-			{name: 'Paris', code: 'PRS'}
+			{name: 'New York'},
+			{name: 'Rome', },
+			{name: 'London'},
+			{name: 'Istanbul'},
+			{name: 'Paris'}
 		],
     titreMarker: '',
-    descriptionMarker: '',
     longitudeMarker: 0,
     lattitudeMarker: 0,
+    descriptionMarker,
     
     
     } 
   },
   setup() {
+    
     const title = ref("Unchanged Popup Title");
     onMounted(() => {
       mapboxgl.accessToken = "pk.eyJ1Ijoic2ltb25idXJkeSIsImEiOiJja25icnI3ajQxdTlxMm9vNmxsODE3dTRtIn0.YBKzKxPtJaxZVNH0je-Quw";
@@ -87,8 +66,37 @@ export default {
         zoom: 5,
       });
 
+      var geolocate = new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true},
+          trackUserLocation: true
+        });
+        
+
+        var scale = new mapboxgl.ScaleControl({
+                maxWidth: 100,
+                unit: 'imperial'      
+        });
+        map.addControl(scale);
+        scale.setUnit('metric');
+
+        // Add the control to the map.
+        map.addControl(geolocate);
+        map.on('load', function() {
+          geolocate.trigger();
+        });
+
+
       geojson.features.forEach(function (marker) {
-            // create a HTML element for each feature
+
+            let adresse = {
+              name: marker.properties.description
+            }
+            if(descriptionMarker.length < geojson.features.length){
+              descriptionMarker.push(adresse)
+            }
+            
+            console.log(descriptionMarker)
             var el = document.createElement('div');
             el.className = 'marker';
             
@@ -103,14 +111,16 @@ export default {
                 .addTo(map)
       
       });
+
+
     
     });
     return { title };
   },
   methods: {
-      addMarker(){
+      /*addMarker(){
             
-            /*this.geojson.features.push({
+            this.geojson.features.push({
                     "type": "Feature",
                         "geometry": {
                             "type": "Point",
@@ -143,11 +153,11 @@ export default {
             }
           a = JSON.stringify(a);
           fs.writeFile("geojson.json", a)
-           console.log(fs.readString("geojson.json"));*/
+           console.log(fs.readString("geojson.json"));
           
           
           
-    },
+    },*/
   }
 };
 </script>

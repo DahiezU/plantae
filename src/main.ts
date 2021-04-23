@@ -26,6 +26,7 @@ import Listbox from 'primevue/listbox';
 import InputText from 'primevue/inputtext';
 import AutoComplete from 'primevue/autocomplete';
 import InputNumber from 'primevue/inputnumber';
+import Rating from 'primevue/rating';
 
 
 const app = createApp(App);
@@ -45,6 +46,7 @@ app.component('Listbox',Listbox);
 app.component('InputText',InputText);
 app.component('InputNumber',InputNumber);
 app.component('AutoComplete',AutoComplete);
+app.component('Rating',Rating);
 
 
 

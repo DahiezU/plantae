@@ -4,7 +4,7 @@ import Profil from '../components/user/Profil.vue';
 import Presentation from '../components/home/Presentation.vue';
 import Map from '../components/marketMap/Map.vue';
 import itemsMarket from '../components/myMarket/itemsMarket.vue';
-import itemChoose from '../components/myMarket/itemChoose.vue';
+import itemClicked from '../components/myMarket/itemClicked.vue';
 
 
 const routes = [
@@ -31,9 +31,9 @@ const routes = [
     component: itemsMarket,
   },
   {
-    path: '/myMarket/itemsMarket/itemChoose',
-    name: 'itemChoose',
-    component: itemChoose,
+    path: '/myMarket/itemsMarket/itemcClicked',
+    name: 'itemClicked',
+    component: itemClicked,
     props: true
   }
   
