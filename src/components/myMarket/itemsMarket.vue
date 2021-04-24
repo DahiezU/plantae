@@ -22,37 +22,40 @@
         </div>
           
        <div v-if="afficherRes">
-           
-          <tr v-for="item in itemsRes.value" :key="item.food.foodId">
-            <Card>
-              <template #header>
-                  <img id="imagProduct"   alt="img product" :src="item.food.image">
-                  
-              </template>
-              <template #title>
-                {{item.food.label}}
-              </template>
-              <template #content>
-              
-                category: {{item.food.category}} <br>
-              
           
-              </template>
-              <template #footer>
-                  <router-link :to="{
-                    name:'itemClicked' , 
-                    params: {
-                      itemId:item.food.foodId ,
-                      itemLabel:item.food.label ,
-                      itemImg:item.food.image,
-                      itemCategory: item.food.category }}"> 
+          <tr v-for="item in itemsRes.value" :key="item.food.foodId">
+            
+              <Card>
+                <template #header>
+                    <img id="imagProduct"   alt="img product" :src="item.food.image">
+                    
+                </template>
+                <template #title>
+                  {{item.food.label}}
+                </template>
+                <template #content>
+                
+                  category: {{item.food.category}} <br>
+                
+            
+                </template>
+                <template #footer>
+                    <router-link :to="{
+                      name:'itemClicked' , 
+                      params: {
+                        itemId:item.food.foodId ,
+                        itemLabel:item.food.label ,
+                        itemImg:item.food.image,
+                        itemCategory: item.food.category }}"> 
 
-                      <Button icon="pi pi-check" label="Save" />
-                  </router-link>
-                  <Button icon="pi pi-times" label="Cancel" class="p-button-secondary" style="margin-left: .5em" />
-              </template>
-            </Card> 
+                        <Button icon="pi pi-check" label="Save" />
+                    </router-link>
+                    <Button icon="pi pi-times" label="Cancel" class="p-button-secondary" style="margin-left: .5em" />
+                </template>
+              </Card> 
+              
           </tr>
+          
         </div>
     </div>
 
