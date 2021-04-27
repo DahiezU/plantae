@@ -22,10 +22,8 @@
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { onMounted } from "vue";
-import { createApp, defineComponent, ref, nextTick } from "vue";
+import {  ref } from "vue";
 import geojson from "./geojson.json"
-/*import * as fs from 'fs-web';
-import { writeFile } from 'fs-web';*/
 const descriptionMarker = [];
 export default {
   
@@ -48,14 +46,16 @@ export default {
   },
   setup() {
     
-    const title = ref("Unchanged Popup Title");
+    const title = ref("Popup Title");
     onMounted(() => {
+      // public accestoken 
       mapboxgl.accessToken = "pk.eyJ1Ijoic2ltb25idXJkeSIsImEiOiJja25icnI3ajQxdTlxMm9vNmxsODE3dTRtIn0.YBKzKxPtJaxZVNH0je-Quw";
     
 
-      
+      // Creation de la map 
       const map = new mapboxgl.Map({
         container: "map",
+        // Differents style des maps 
         //style: "mapbox://styles/simonburdy/cknd782me078k17o3kqf63teg",
         //style: "mapbox://styles/mapbox/streets-v11",
         //style: "mapbox://styles/mapbox/outdoors-v11",
@@ -66,6 +66,7 @@ export default {
         zoom: 5,
       });
 
+      // Creation de la géolocalisation 
       var geolocate = new mapboxgl.GeolocateControl({
         positionOptions: {
           enableHighAccuracy: true},
@@ -73,6 +74,7 @@ export default {
         });
         
 
+        //Creation de l'echelle se trouvant au bord infèrieure gauche 
         var scale = new mapboxgl.ScaleControl({
                 maxWidth: 100,
                 unit: 'imperial'      
@@ -80,13 +82,15 @@ export default {
         map.addControl(scale);
         scale.setUnit('metric');
 
-        // Add the control to the map.
+        // Ajouter des controles 
         map.addControl(geolocate);
         map.on('load', function() {
           geolocate.trigger();
         });
 
 
+
+      // Ajout des markers se trouvant sur la map
       geojson.features.forEach(function (marker) {
 
             let adresse = {
@@ -96,7 +100,6 @@ export default {
               descriptionMarker.push(adresse)
             }
             
-            console.log(descriptionMarker)
             var el = document.createElement('div');
             el.className = 'marker';
             
@@ -117,48 +120,6 @@ export default {
     });
     return { title };
   },
-  methods: {
-      /*addMarker(){
-            
-            this.geojson.features.push({
-                    "type": "Feature",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [
-                                this.lattitudeMarker,
-                                this.lattitudeMarker
-                            ]
-                        },
-                        "properties": {
-                            "title": this.titreMarker,
-                            "description": this.descriptionMarker
-                        }
-                        });*/
-                      //console.log(geojson);*/
-            
-          /*let a = {
-               
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [
-                        12.028604327159604,
-                        30.3404606307355
-                    ]
-                },
-                "properties": {
-                    "title": "Magasin 5",
-                    "description": "Meilleur magasin du monde"
-                }
-            }
-          a = JSON.stringify(a);
-          fs.writeFile("geojson.json", a)
-           console.log(fs.readString("geojson.json"));
-          
-          
-          
-    },*/
-  }
 };
 </script>
 

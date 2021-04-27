@@ -2,7 +2,6 @@
   <div>
     <TabMenu :model="items" />
   
-    <!-- <router-view/> -->
 
   </div>
   

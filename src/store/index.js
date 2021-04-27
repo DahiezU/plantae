@@ -1,29 +1,27 @@
 import { createStore } from 'vuex';
 
+// Creation store 
+
 const store = createStore({
   state() {
     return {
-      inputSearch: "",
-      dataItem: null ,
+      inputSearch: "", // valeur saisie dans la recherche 
+      dataItem: null , // objet du dernier produit cliqué
     };
   },
 
 
-
   getters: {
-    getinputSearch: (state) => state.inputSearch,
-    getDataItem: (state) => state.dataItem,
+    getinputSearch: (state) => state.inputSearch, // getteur  valeur saisie
+    getDataItem: (state) => state.dataItem, // guetteur valeur objet 
   },
 
 
-
-
-
   mutations: {
-    setinputSearch(state,inputSearch ) {
+    setinputSearch(state,inputSearch ) { // setteur  valeur saisie
       state.inputSearch = inputSearch;
     },
-    setdataItem(state, dataItem) {
+    setdataItem(state, dataItem) { //setteur valeur objet 
       state.dataItem = dataItem;
     }
   },
@@ -33,12 +31,12 @@ const store = createStore({
   actions:{
       setinputSearch({ commit } , inputSearch) {
         commit("setinputSearch",inputSearch)
-        console.log(" mon resultat inputSearch = " ,inputSearch)
+       
       },
 
       setdataItem({ commit } , dataItem) {
         commit("setdataItem",dataItem)
-        console.log(" mon resultat dataItem = " ,dataItem)
+       
       }
 
     
@@ -50,31 +48,3 @@ const store = createStore({
 
 export default store;
 
-
-/*import { createStore } from 'vuex';
-
-const store = createStore({
-  state() {
-    return {
-      count: 0,
-      data: {},
-    };
-  },
-  getters: {
-    getCount: (state) => state.count,
-    getData: (state) => state.data,
-  },
-  mutations: {
-    setCount(state, count) {
-      state.count = count;
-    },
-    increment(state) {
-      state.count ++;
-    },
-    setData(state, payload) {
-      state.data = payload;
-    }
-  }
-});
-
-export default store;*/

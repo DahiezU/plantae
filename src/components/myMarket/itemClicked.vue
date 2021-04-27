@@ -4,7 +4,7 @@
         <div  class="p-col-2">
             <router-link :to="{
                 name:'itemsMarket'}"> 
-                  <Button  icon="pi pi-backward" label="Revenir à la recherche" />
+                  <Button  icon="pi pi-backward" label="Revenir à la recherche" style="margin-top: 30px"/>
                 </router-link> 
         </div>
         <div  class="p-col-8">
@@ -197,9 +197,8 @@
 export default {
     name :'itemClicked',
     created(){
-        
+        // Recup du dernier item cliqué 
         let itemObj = this.$store.getters.getDataItem
-        //console.log("itemObj" ,this.itemObj)
         if(!itemObj ){
             this.$router.push({name: "itemsMarket"})
         }
@@ -208,19 +207,10 @@ export default {
     },
     data() {
         return {
-            val1:5,
-            quantiteKg:0.00,
             itemObj : {}
           
         }
-    },
-    /*props: {
-            itemObj: Object
-            itemLabel: '',
-            itemId:'',
-            itemImg:'',
-            itemCategory: ''
-    },*/
+    }
     
        
       

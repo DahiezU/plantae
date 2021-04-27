@@ -65,15 +65,8 @@
 
                   <template #footer>
                       <router-link :to="{
-                        name:'itemClicked' , 
-                        params: {
-                          /*itemObj: item
-                          itemId:item.food.foodId ,
-                          itemLabel:item.food.label ,
-                          itemImg:item.food.image,
-                          itemCategory: item.food.category */}}"> 
-
-                        <Button @click = "$store.dispatch('setdataItem',item)"  icon="pi pi-check" label="En savoir plus" />
+                        name:'itemClicked'}"> 
+                        <Button @click = "$store.dispatch('setdataItem',item)"  icon="pi pi-check" label="En savoir plus"/>
                       </router-link> 
                   </template>
                 </Card> 
@@ -92,15 +85,8 @@
 <script>
 import ItemService from './itemsService';
 import ItemClicked from './itemClicked.vue';
-import DataView from 'primevue/dataview';
-import axios from 'axios'
-import { mapActions } from 'vuex'
 
 
-import { useStore } from 'vuex';
-
-
-//const itemsFound = {}
 export default {
     components:{
         ItemClicked
@@ -108,13 +94,14 @@ export default {
     },
     created() {
 
+        // creation du composant ItemServices
         this.itemService = new ItemService();
         
+        //Recup valeur rentrées dans la barre de recherche
         let itemSelected = this.$store.getters.getinputSearch
-        console.log(" mon item ---------->",itemSelected)
         this.selectedItem = itemSelected
 
-
+        // Recup dernier item cliqué
         let itemData = this.$store.getters.getDataItem
         if(itemData){
           this.itemObj = itemData
@@ -130,99 +117,45 @@ export default {
             selectedItem: '', 
             filteredItems: null,
             itemsRes: [],
-            //itemsFound:[],
             itemObj : null
-            /*monItem:{
-              
-              itemLabel: '',
-              itemId:'',
-              itemImg:'',
-              itemCategory: ''
-            }*/
+            
           
         }
     },
-    
     itemService: null,
    
     
-    
-    
     computed: {
-      /*filteredItems(){
-        return this.filteredItems
-      },*/
+      // valeur trouvez correspondant à la recherche 
       itemsFound: {
         get(){
            return this.itemsFound
         },
         set(valeur){
-            //console.log("ma belle valauer == " , valeur)
             this.itemsRes = valeur
         }
       }
     },
     watch: {
+        // gestion de la reactivité de de l'autoComplete  et la recherche
         selectedItem(){
             this.loadSuggestionItems()
             this.loadItems()
             this.$store.dispatch("setinputSearch",this.selectedItem)
-           //this.setInput({inputSearch:this.selectedItem})
-
-
-          }
-        
-          
+          }  
     },
 
-
-    
-    
     methods: {
-        
-      ...mapActions({
-        setInput: "setinputSearch",
-        setData: "setdataItem"
-        }),
-
+        // gestion de lauto complete
         loadSuggestionItems() {
-          //console.log(this.selectedItem)
-          let resultat = [];
-              this.items = this.itemService.getItems(this.selectedItem).items.value
-          
-            
+            this.items = this.itemService.getItems(this.selectedItem).items
             this.filteredItems = this.items
-          
-         
+   
         },
+        // gestion de la recherche
           loadItems(){
-               var maval = []
-            //console.log("--"+this.selectedItem+"--");
-            
-            //console.log("afficher res ->> " ,this.afficherRes);
             this.afficherRes = true
-            //console.log("afficher res apres ->> " ,this.afficherRes);
-            
-            axios
-              .get( 'https://api.edamam.com/api/food-database/v2/parser?ingr='+this.selectedItem+'&app_id=21137dee&app_key=3ec1733a6d09062c59d4ef9451d12035')
-              .then(function (response) {
-                //console.log('ma putain de reponse de merde ->>>' ,response)
-                maval.value = response.data.hints 
-                //this.setData({dataItem:bite.value})
-                
-                
-                
-              })
-              .catch(function (error) {
-                console.error(error);
-              });
-
-                this.itemsFound = maval ;
-                //console.log(" mes  items found ->>>>> ",this.itemsFound)
-              
-              
-            
-              
+            this.itemsFound = this.itemService.loadItemsAPI(this.selectedItem).maval
             
           }
     },

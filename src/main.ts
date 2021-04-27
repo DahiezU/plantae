@@ -4,15 +4,15 @@ import router from './router'
 
 
 
-import store from './store'
+import store from './store' // import du store 
 
 
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+import axios from 'axios'    // import du axios
+import VueAxios from 'vue-axios' 
 
 
 
-
+// Import des modules de primeVue 
 
 import PrimeVue from 'primevue/config'
 
@@ -34,6 +34,9 @@ import AutoComplete from 'primevue/autocomplete';
 import InputNumber from 'primevue/inputnumber';
 import Rating from 'primevue/rating';
 
+
+
+// creation de l'APP 
 
 const app = createApp(App);
 
@@ -61,7 +64,3 @@ app.use(router).use(store).mount('#app')
 
 
 
-
-
-
-//store.js 
