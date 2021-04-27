@@ -217,8 +217,7 @@ export default {
 }
 
 #imagProduct {
- max-height: 167.5px;
-	
+ max-height: 167.5px; 
   
 }
 
