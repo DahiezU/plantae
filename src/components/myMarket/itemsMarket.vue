@@ -93,6 +93,9 @@ import DataView from 'primevue/dataview';
 import axios from 'axios'
 
 
+import { useStore } from 'vuex';
+
+
 //const itemsFound = {}
 export default {
     components:{
@@ -113,10 +116,6 @@ export default {
               itemImg:'',
               itemCategory: ''
             }
-            
-
-            
-
           
         }
     },
@@ -185,7 +184,7 @@ export default {
               .then(function (response) {
                 console.log('ma putain de reponse de merde ->>>' ,response)
                 bite.value = response.data.hints 
-                console.log('ma bite  ->>>' , bite.value)
+               
               
                 
                 

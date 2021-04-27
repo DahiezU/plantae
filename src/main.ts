@@ -2,8 +2,14 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
+
+
+import store from './store'
+
+
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+
 
 
 
@@ -50,5 +56,12 @@ app.component('Rating',Rating);
 
 
 
-app.use(router).mount('#app')
+app.use(router).use(store).mount('#app')
 
+
+
+
+
+
+
+//store.js 
