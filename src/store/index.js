@@ -18,6 +18,19 @@ const store = createStore({
     setdataItem(state, dataItem) {
       state.dataItem = dataItem;
     }
+  },
+  actions:{
+      setinputSearch({ commit } , inputSearch) {
+        commit("setinputSearch",inputSearch)
+        console.log(" mon resultat inputSearch = " ,inputSearch)
+      },
+
+      setdataItem({ commit } , dataItem) {
+        commit("setdataItem",dataItem)
+        console.log(" mon resultat dataItem = " ,dataItem)
+      }
+
+    
   }
 });
 

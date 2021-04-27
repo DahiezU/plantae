@@ -61,14 +61,14 @@
                             <router-link :to="{
                               name:'itemClicked' , 
                               params: {
+                                /*itemObj: item
                                 itemId:item.food.foodId ,
                                 itemLabel:item.food.label ,
                                 itemImg:item.food.image,
-                                itemCategory: item.food.category }}"> 
+                                itemCategory: item.food.category */}}"> 
 
-                              <Button icon="pi pi-check" label="En savoir plus" />
-                            </router-link>
-                            
+                              <Button @click = "$store.dispatch('setdataItem',item)"  icon="pi pi-check" label="En savoir plus" />
+                            </router-link> 
                         </template>
                       </Card> 
                       
@@ -91,6 +91,7 @@ import ItemService from './itemsService';
 import ItemClicked from './itemClicked.vue';
 import DataView from 'primevue/dataview';
 import axios from 'axios'
+import { mapGetters, mapActions } from 'vuex'
 
 
 import { useStore } from 'vuex';
@@ -102,20 +103,32 @@ export default {
         ItemClicked
        
     },
+    created() {
+
+        this.itemService = new ItemService();
+        
+        let itemSelected = this.$store.getters.getinputSearch
+        console.log(" mon item ---------->",itemSelected)
+        this.selectedItem = itemSelected
+          
+        
+    },
     data() {
         return {
             items: null,
             afficherRes:false,
-            selectedItem: null, 
+            selectedItem: '', 
             filteredItems: null,
             itemsRes: [],
             itemsFound:[],
-            monItem:{
+            itemObj : null
+            /*monItem:{
+              
               itemLabel: '',
               itemId:'',
               itemImg:'',
               itemCategory: ''
-            }
+            }*/
           
         }
     },
@@ -123,9 +136,7 @@ export default {
     itemService: null,
    
     
-    created() {
-        this.itemService = new ItemService();
-    },
+    
     
     computed: {
       filteredItems(){
@@ -145,27 +156,30 @@ export default {
         selectedItem(){
             this.loadSuggestionItems()
             this.loadItems()
+            this.$store.dispatch("setinputSearch",this.selectedItem)
+           //this.setInput({inputSearch:this.selectedItem})
+
+
           }
         
           
     },
+
+
+    
     
     methods: {
+        
+      ...mapActions({
+        setInput: "setinputSearch",
+        setData: "setdataItem"
+        }),
+
         loadSuggestionItems() {
-          console.log(this.selectedItem)
+          //console.log(this.selectedItem)
           let resultat = [];
               this.items = this.itemService.getItems(this.selectedItem).items.value
-              //console.log(this.items)
-
-              /*this.items?.forEach(element => {
-                        let configLine = {
-                            name : element
-                        }
-                         resultat.push(element);
-                    
-            
-                    });*/
-            //console.log('mon resultat',resultat )
+          
             
             this.filteredItems = this.items
           
@@ -173,19 +187,19 @@ export default {
         },
            loadItems() {
                var bite = []
-            console.log("--"+this.selectedItem+"--");
+            //console.log("--"+this.selectedItem+"--");
             
-            console.log("afficher res ->> " ,this.afficherRes);
+            //console.log("afficher res ->> " ,this.afficherRes);
             this.afficherRes = true
-            console.log("afficher res apres ->> " ,this.afficherRes);
+            //console.log("afficher res apres ->> " ,this.afficherRes);
             
             axios
               .get( 'https://api.edamam.com/api/food-database/v2/parser?ingr='+this.selectedItem+'&app_id=21137dee&app_key=3ec1733a6d09062c59d4ef9451d12035')
               .then(function (response) {
-                console.log('ma putain de reponse de merde ->>>' ,response)
+                //console.log('ma putain de reponse de merde ->>>' ,response)
                 bite.value = response.data.hints 
-               
-              
+                //this.setData({dataItem:bite.value})
+                
                 
                 
               })
@@ -194,7 +208,7 @@ export default {
               });
 
                 this.itemsFound = bite ;
-                console.log(" mes  items found ->>>>> ",this.itemsFound)
+                //console.log(" mes  items found ->>>>> ",this.itemsFound)
               
               
             

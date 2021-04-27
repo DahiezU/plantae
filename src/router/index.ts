@@ -9,6 +9,7 @@ import itemClicked from '../components/myMarket/itemClicked.vue';
 
 const routes = [
   {
+    name: "acceuil",
     path: '/',
     component: Presentation,
   },
@@ -27,6 +28,7 @@ const routes = [
     component: Map,
   },
   {
+    name:"itemsMarket",
     path: '/myMarket/itemsMarket',
     component: itemsMarket,
   },

@@ -1,5 +1,6 @@
 <template>
-   <div class="p-grid">
+    <div v-if="itemObj" >
+    <div class="p-grid">
         <div  class="p-col-2">
 
         </div>
@@ -9,7 +10,11 @@
                     <div  id='itemBox' class="p-grid p-md-flex-column" >
                         <div class="p-d-col p-md-col" id="imgCol">
                             <div class="p-flex">
-                                <img id="imgProduct"    alt="img product"  :src="itemImg">
+                                <img v-if="itemObj.food.image"
+                                     id="imagProduct"   alt="img product" :src="itemObj?.food.image">
+
+                                <img v-if="!itemObj.food.image"
+                                    alt="img product" src="../../assets/noPicture.jpg">
                             </div>
                             
                         </div>
@@ -17,11 +22,11 @@
                                 <div class="p-grid p-flex-column">
                                     <div class="p-col">
                                         <div class="p-text-center p-text-bold" >
-                                            <label style="font-size: 30px" >{{itemLabel}} </label>
+                                            <label style="font-size: 30px" >{{itemObj?.food.label}} </label>
                                         </div>
                                         <div class="p-text-left">
                                             <label class="p-text-light" style="font-size: 15px" >
-                                                Catégorie : {{itemCategory}}
+                                                Catégorie : {{itemObj?.food.category}}
                                             </label>
                                         </div>
                                     </div>
@@ -82,7 +87,11 @@
 
                                     </div>
                                     <div class="p-col">
-                                        <img id="imgMarket"   alt="img product" :src="itemImg">                              
+                                        <img v-if="itemObj?.food.image"
+                                            id="imagProduct"   alt="img product" :src="itemObj?.food.image">
+
+                                        <img v-if="!itemObj?.food.image"
+                                            alt="img product" src="../../assets/noPicture.jpg">                             
                                     </div>
                                     <div class="p-col">
 
@@ -101,7 +110,11 @@
                         <div class="p-col">
                             <Card>
                                 <template #header>
-                                    <img alt="user header" :src="itemImg">
+                                    <img v-if="itemObj?.food.image"
+                                        id="imagProduct"   alt="img product" :src="itemObj?.food.image">
+
+                                    <img v-if="!itemObj?.food.image"
+                                        alt="img product" src="../../assets/noPicture.jpg">
                                 </template>
                                 <template #title>
                                     Advanced Card
@@ -119,7 +132,11 @@
                         <div class="p-col">    
                             <Card>
                                 <template #header>
-                                    <img alt="user header" :src="itemImg">
+                                    <img v-if="itemObj?.food.image"
+                                        id="imagProduct"   alt="img product" :src="itemObj?.food.image">
+
+                                    <img v-if="!itemObj?.food.image"
+                                        alt="img product" src="../../assets/noPicture.jpg">
                                 </template>
                                 <template #title>
                                     Advanced Card
@@ -138,7 +155,11 @@
                         <div class="p-col">
                              <Card>
                                 <template #header>
-                                    <img alt="user header" :src="itemImg">
+                                    <img v-if="itemObj?.food.image"
+                                        id="imagProduct"   alt="img product" :src="itemObj?.food.image">
+
+                                    <img v-if="!itemObj?.food.image"
+                                        alt="img product" src="../../assets/noPicture.jpg">
                                 </template>
                                 <template #title>
                                     Advanced Card
@@ -164,7 +185,7 @@
         </div>
 
     </div>
-   
+   </div>
 </template>
 
 <script>
@@ -172,20 +193,31 @@
 
 export default {
     name :'itemClicked',
+    created(){
+        
+        let itemObj = this.$store.getters.getDataItem
+        //console.log("itemObj" ,this.itemObj)
+        if(!itemObj ){
+            this.$router.push({name: "itemsMarket"})
+        }
+
+        this.itemObj = itemObj
+    },
     data() {
         return {
             val1:5,
-            quantiteKg:0.00
-
+            quantiteKg:0.00,
+            itemObj : {}
           
         }
     },
-    props: {
+    /*props: {
+            itemObj: Object
             itemLabel: '',
             itemId:'',
             itemImg:'',
             itemCategory: ''
-    },
+    },*/
     
        
       
