@@ -2,7 +2,10 @@
     <div v-if="itemObj" >
     <div class="p-grid">
         <div  class="p-col-2">
-
+            <router-link :to="{
+                name:'itemsMarket'}"> 
+                  <Button  icon="pi pi-backward" label="Revenir à la recherche" />
+                </router-link> 
         </div>
         <div  class="p-col-8">
             <div class="p-grid p-flex-column">

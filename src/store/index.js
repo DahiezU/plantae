@@ -7,10 +7,18 @@ const store = createStore({
       dataItem: null ,
     };
   },
+
+
+
   getters: {
     getinputSearch: (state) => state.inputSearch,
     getDataItem: (state) => state.dataItem,
   },
+
+
+
+
+
   mutations: {
     setinputSearch(state,inputSearch ) {
       state.inputSearch = inputSearch;
@@ -19,6 +27,9 @@ const store = createStore({
       state.dataItem = dataItem;
     }
   },
+
+
+
   actions:{
       setinputSearch({ commit } , inputSearch) {
         commit("setinputSearch",inputSearch)
@@ -32,6 +43,9 @@ const store = createStore({
 
     
   }
+
+
+
 });
 
 export default store;
