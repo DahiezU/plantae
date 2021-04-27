@@ -19,6 +19,7 @@
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
     "primevue": "^3.3.5",
+    "store": "^2.0.12",
     "vue": "^3.0.5",
     "vue-axios": "^3.2.4",
     "vue-mapbox": "^0.4.1",
