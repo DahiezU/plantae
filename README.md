@@ -1,28 +1,43 @@
-# Vue 3 + Typescript + Vite
+# Plantae
+auteurs : Dahiez Ulysse & Burdy Simon
 
-This template should help get you started developing with Vue 3 and Typescript in Vite.
+Plantae est une application web de consultation de produits comestibles à vendre sur des marchés.
+Pour l'adaptation au cours nous avons connecté une API REST alimentaire déjà existant pour la recherche du produit.
+Une API map est aussi connectée.
 
-## Recommended IDE Setup
+Les pages fonctionnelles sont :
 
-[VSCode](https://code.visualstudio.com/) + [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur). Make sure to enable `vetur.experimental.templateInterpolationService` in settings!
+## Nos marchés 
+URL : http://localhost:3000/#/marketmap/map
 
-### If Using `<script setup>`
+Cette page est composé de l'API mapbox 
 
-[`<script setup>`](https://github.com/vuejs/rfcs/pull/227) is a feature that is currently in RFC stage. To get proper IDE support for the syntax, use [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) instead of Vetur (and disable Vetur).
+## Mes produites 
 
-## Type Support For `.vue` Imports in TS
+URL: http://localhost:3000/#/myMarket/itemsMarket
+Cette page est composé de l'API nommé edamam, accessible sur le site https://developer.edamam.com
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can use the following:
+Warning :
 
-### If Using Volar
+si l'application affiche une erreur lors de la recherche d'un produit.
 
-Run `Volar: Switch TS Plugin on/off` from VSCode command palette.
+Veuillez suivre ces étapes :
+- 1.créer un compte sur https://developer.edamam.com 
+- 2. Cliquer sur l'onglet "Get API key now " ou rentrer l'URL : https://developer.edamam.com/admin/applications 
+- 3. Cliquer sur "Create à newe application" 
+- 4. Cliquer sur "Food Database Api" 
+- 5. Saisir un nom, par exemple "plantae" 
+- 6. Saisir une description, par exemple " création application projet vueJs3" 
+- 7. Une "application ID" et une "application keys" a été créée .
+- 8.Ouvrez le dossier du projet : suivez le chemin -> src/myMarket/itemsServices js 
+- 9.Regardez dans la fonction "getItems(mot)" 
+- 10. Vous devez maintenant remplacer la valeur se trouvant après "app_id=" jusqu'au "&" dans la ligne ". get(....." (cf commentaire) par votre "application ID" 
+- 11.Vous devez remplacer la valeur se trouvant après "app_key=" jusqu'à la fin par votre "application keys" 
+- 12. Repeter l'opération 10 et 11 pour la fonction se trouvant en dessous nommée "loadItemsAPI(mot)" 
+- 13 Vous pouvez maintenant rechercher des produits dans la barre de recherche de la page "Mes produits"
 
-### If Using Vetur
+Lorsque vous avez rentré une recherche valide, une liste de produits correspondants apparaît .Vous pouvez cliquer sur " En savoir plus" pour être redirigé vers l'URL: http://local host :3000/#/myMarket/itemsMarket/itemcClicked
+Sur la page de l'URL : http://localhost:3000/#/myMarket/itemsMarket/itemcClicked , vous pouvez revenir en arrière .
 
-1. Install and add `@vuedx/typescript-plugin-vue` to the [plugins section](https://www.typescriptlang.org/tsconfig#plugins) in `tsconfig.json`
-2. Delete `src/shims-vue.d.ts` as it is no longer needed to provide module info to Typescript
-3. Open `src/main.ts` in VSCode
-4. Open the VSCode command palette
-5. Search and run "Select TypeScript version" -> "Use workspace version"
-# plantae
+### Autres pages :
+aucune autre page n'est opérationnelle pour l'instant
